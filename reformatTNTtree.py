@@ -51,8 +51,9 @@ def main():
 		reftdTree.write("%s" % booTree_mod)
 		print("%s\n\nReformatted tree saved as: %s/tree_reformated.tree" % (booTree_mod, sys.argv[3]))
 	else:
-		print '''
+		print('''
 			use as ... python3 path_to_lengths_tree path_to_bootstrap_tree path_to_output
+			
 			* path_to_lengths_tree: the path to your tree with branch lengths, which you can 
 									produce in TNT after a parsimony analysis with the command
 									ttag-; ttag=; blength * n ; export > your_output_with branches.nex;
@@ -63,6 +64,6 @@ def main():
 									This tree has a weird node-notation where the bootstrap values are
 									after a another number and a "/" (e.g., 1234/95).
 			* path_to_output: The folder where you want your re-formatted tree output. 
-			'''
+			''')
 if __name__ == "__main__":
 	main()
