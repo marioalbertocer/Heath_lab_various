@@ -34,20 +34,35 @@ def takeNode(n_ind, tree):
 	return n_label
 
 def main():
-	lenTree, booTree_mod = getTrees(sys.argv[1], sys.argv[2])
-	reftdTree = open(sys.argv[3] + "/tree_reformated.tree", "w") 
-	while lenTree != booTree_mod:
-		for i in range(0,len(lenTree)):
-			if lenTree[i] != booTree_mod[i]:
-				if lenTree[i] == ":":
-					if checkInt(booTree_mod[i]) is False: 							
-						n_label = takeNode(i, lenTree)
-						booTree_mod = booTree_mod[:i] + n_label + booTree_mod[i:len(booTree_mod)]
-					if checkInt(booTree_mod[i]) is True:
-						n_label = takeNode(i, booTree_mod)
-						lenTree = lenTree[:i] + n_label + lenTree[i:len(lenTree)]
-				break	
-	reftdTree.write("%s" % booTree_mod)
-	print("%s\n\nReformatted tree saved as: %s/tree_reformated.tree" % (booTree_mod, sys.argv[3]))
+	if len(sys.argv) == 4:
+		lenTree, booTree_mod = getTrees(sys.argv[1], sys.argv[2])
+		reftdTree = open(sys.argv[3] + "/tree_reformated.tree", "w") 
+		while lenTree != booTree_mod:
+			for i in range(0,len(lenTree)):
+				if lenTree[i] != booTree_mod[i]:
+					if lenTree[i] == ":":
+						if checkInt(booTree_mod[i]) is False: 							
+							n_label = takeNode(i, lenTree)
+							booTree_mod = booTree_mod[:i] + n_label + booTree_mod[i:len(booTree_mod)]
+						if checkInt(booTree_mod[i]) is True:
+							n_label = takeNode(i, booTree_mod)
+							lenTree = lenTree[:i] + n_label + lenTree[i:len(lenTree)]
+					break	
+		reftdTree.write("%s" % booTree_mod)
+		print("%s\n\nReformatted tree saved as: %s/tree_reformated.tree" % (booTree_mod, sys.argv[3]))
+	else:
+		print '''
+			use as ... python3 path_to_lengths_tree path_to_bootstrap_tree path_to_output
+			* path_to_lengths_tree: the path to your tree with branch lengths, which you can 
+									produce in TNT after a parsimony analysis with the command
+									ttag-; ttag=; blength * n ; export > your_output_with branches.nex;
+			* path_to_bootstrap_tree: Path to your tree with bootstrap values from TNT after a 
+									bootstrap analysis (e.g., resample replications 100 ;), which 
+									you can get in TNT using the command...
+									export - your_tree_with_bootstrap.nex ;
+									This tree has a weird node-notation where the bootstrap values are
+									after a another number and a "/" (e.g., 1234/95).
+			* path_to_output: The folder where you want your re-formatted tree output. 
+			'''
 if __name__ == "__main__":
 	main()
