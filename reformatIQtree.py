@@ -5,7 +5,7 @@ import dendropy
 # iqtree2 -s alignment -B 1000 -alrt 1000 
 # and combines the information in just one tree that is compatible with figTree.
 # use as ... python3 path_to_lengths_tree(nexus) path_to_bootstrap_tree(nexus) path_to_output(folder)
-if sys.argv == 3:
+if len(sys.argv) == 3:
 	tree = (open(sys.argv[1], "r").readlines())[0]
 	tree_object = dendropy.Tree.get_from_string(tree, schema="newick")
 	for nd in tree_object:
